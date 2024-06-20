@@ -15,10 +15,11 @@
             android:textSize="24sp"
             android:layout_height="wrap_content"/>
         <EditText
+            android:id="@+id/edit_task_title"
             android:layout_width="0dp"
             android:importantForAutofill="no"
             android:inputType="text"
-            android:padding="8dp"
+            android:paddingVertical="16dp"
             android:hint="@string/task_title"
             android:textSize="18sp"
             android:layout_marginTop="12dp"
