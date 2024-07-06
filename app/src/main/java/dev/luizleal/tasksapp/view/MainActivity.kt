@@ -1,6 +1,5 @@
-package dev.luizleal.tasksapp.ui
+package dev.luizleal.tasksapp.view
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
@@ -40,11 +39,16 @@ class MainActivity : AppCompatActivity() {
                 .setView(dialogView)
                 .setPositiveButton(getString(R.string.new_task_positive_button)) { _, _ ->
                     val inputText = tasksTitleEditText.text.toString()
+                    createTask(inputText)
                 }
                 .setNegativeButton(getString(R.string.new_task_negative_button)) { dialog, _ ->
                     dialog.dismiss()
                 }
                 .create().show()
         }
+    }
+
+    private fun createTask(title: String) {
+
     }
 }
