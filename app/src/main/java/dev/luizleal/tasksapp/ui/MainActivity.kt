@@ -1,18 +1,24 @@
-package dev.luizleal.tasksapp.view
+package dev.luizleal.tasksapp.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.EditText
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputEditText
+import dev.luizleal.tasksapp.Application
 import dev.luizleal.tasksapp.R
 import dev.luizleal.tasksapp.databinding.ActivityMainBinding
+import dev.luizleal.tasksapp.model.Task
+import dev.luizleal.tasksapp.viewmodel.TaskViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
+    private val viewModel: TaskViewModel by viewModels {
+       TaskViewModel.TaskViewModelFactory((application as Application).taskRepository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,27 +26,26 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-
         binding.apply {
             fabNewTask.setOnClickListener(setupNewTaskDialog())
         }
     }
 
-    private fun setupNewTaskDialog(): View.OnClickListener? {
+    private fun setupNewTaskDialog(): View.OnClickListener {
         return View.OnClickListener {
             val dialogView = layoutInflater.inflate(R.layout.new_note_dialog, null)
-            val tasksTitleEditText = dialogView.findViewById<TextInputEditText>(R.id.textfield_title)
+            val tasksTitleEditText =
+                dialogView.findViewById<TextInputEditText>(R.id.textfield_title)
 
-            MaterialAlertDialogBuilder(this@MainActivity)
+            MaterialAlertDialogBuilder(this)
                 .setView(dialogView)
                 .setPositiveButton(getString(R.string.new_task_positive_button)) { _, _ ->
+
                     val inputText = tasksTitleEditText.text.toString()
-                    createTask(inputText)
+
+                    if (inputText.isNotEmpty()) {
+                        createTask(inputText.trim())
+                    }
                 }
                 .setNegativeButton(getString(R.string.new_task_negative_button)) { dialog, _ ->
                     dialog.dismiss()
@@ -50,6 +55,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun createTask(title: String) {
-
+        Log.d("Create task", "function called")
+        val task = Task(taskTitle = title)
+        viewModel.insertTask(task)
     }
 }
