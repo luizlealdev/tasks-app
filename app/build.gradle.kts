@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("kotlin-kapt")
     id("kotlin-parcelize")
     id("com.google.devtools.ksp")
 }
@@ -38,7 +37,6 @@ android {
     }
     buildFeatures {
         dataBinding = true
-        viewBinding = true
     }
 }
 
@@ -53,20 +51,21 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    //Room DB
+    //Room Database
     implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
+    annotationProcessor(libs.androidx.room.compiler)
 
-    // Coroutines
+    //Coroutines
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.androidx.room.ktx)
 
     //ViewModel
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
-    // LiveData
+    //LiveData
     implementation(libs.androidx.lifecycle.livedata.ktx)
 
-    // Annotation processor
+    //Annotation processor
     ksp(libs.androidx.lifecycle.compiler)
 }
