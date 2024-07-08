@@ -10,8 +10,9 @@ class TaskRepository(private val taskSource: TaskLocalSource) {
 
     fun insertTask(task: Task) = taskSource.insertTask(task)
 
-    suspend fun updateTask(task: Task) = taskSource.updateTask(task)
+    suspend fun updateTask(id: Int, title: String, state: Boolean) =
+        taskSource.updateTask(id, title, state)
 
-    fun deleteTasks(id: List<Int>) = taskSource.deleteTask(id)
+    fun deleteTasks(task: Task) = taskSource.deleteTask(task)
 
 }

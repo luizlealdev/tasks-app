@@ -9,8 +9,9 @@ class TaskLocalSource(private val taskDao: TaskDao) {
 
     fun insertTask(task: Task) = taskDao.insertTask(task)
 
-    suspend fun updateTask(task: Task) = taskDao.updateTask(task)
+    suspend fun updateTask(id: Int, title: String, state: Boolean) =
+        taskDao.updateTask(id, title, state)
 
-    fun deleteTask(ids: List<Int>) = taskDao.deleteTasks(ids)
+    fun deleteTask(task: Task) = taskDao.deleteTasks(task)
 
 }

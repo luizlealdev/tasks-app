@@ -22,15 +22,15 @@ class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
         }
     }
 
-    fun updateTask(task: Task) = viewModelScope.launch {
+    fun updateTask(id: Int, title: String, state: Boolean) = viewModelScope.launch {
         withContext(Dispatchers.IO) {
-            repository.updateTask(task)
+            repository.updateTask(id, title, state)
         }
     }
 
-    fun deleteTask(ids: List<Int>) = viewModelScope.launch {
+    fun deleteTask(task: Task) = viewModelScope.launch {
         withContext(Dispatchers.IO) {
-            repository.deleteTasks(ids)
+            repository.deleteTasks(task)
         }
     }
 
