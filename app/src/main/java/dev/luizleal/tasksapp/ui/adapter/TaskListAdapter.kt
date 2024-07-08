@@ -2,7 +2,6 @@ package dev.luizleal.tasksapp.ui.adapter
 
 import android.annotation.SuppressLint
 import android.graphics.Paint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,8 @@ import dev.luizleal.tasksapp.model.Task
 
 class TaskListAdapter(
     private val onCheckBoxClicked: (Task) -> Unit,
-    private val onMoreActionsIconClicked: (Task, parent: View) -> Unit
+    private val onMoreActionsIconClicked: (Task, parent: View) -> Unit,
+    private val onTextTitleClicked: (Task) -> Unit
 ) : RecyclerView.Adapter<TaskListAdapter.TaskViewHolder>() {
 
     private var items: List<Task> = ArrayList()
@@ -32,7 +32,12 @@ class TaskListAdapter(
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         when (holder) {
             is TaskViewHolder -> {
-                holder.bind(items[position], onCheckBoxClicked, onMoreActionsIconClicked)
+                holder.bind(
+                    items[position],
+                    onCheckBoxClicked,
+                    onMoreActionsIconClicked,
+                    onTextTitleClicked
+                )
             }
         }
     }
@@ -48,7 +53,13 @@ class TaskListAdapter(
 
         private val taskTitle = binding.textTaskTitle
 
-        fun bind(task: Task, onCheckBoxClicked: (Task) -> Unit, onMoreActionsIconClicked: (Task, parent: View) -> Unit) {
+        @SuppressLint("ClickableViewAccessibility")
+        fun bind(
+            task: Task,
+            onCheckBoxClicked: (Task) -> Unit,
+            onMoreActionsIconClicked: (Task, parent: View) -> Unit,
+            onTextTitlePressed: (Task) -> Unit
+        ) {
             taskTitle.text = task.taskTitle
 
             var checkBoxState = MaterialCheckBox.STATE_UNCHECKED
@@ -69,6 +80,10 @@ class TaskListAdapter(
 
             binding.buttonMoreActions.setOnClickListener {
                 onMoreActionsIconClicked(task, it)
+            }
+
+            taskTitle.setOnClickListener {
+                onTextTitlePressed(task)
             }
         }
     }

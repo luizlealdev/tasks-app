@@ -3,6 +3,7 @@ package dev.luizleal.tasksapp.ui
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         changeTaskState(task)
     }, { task, parent ->
         showTaskPopUpMenu(task, parent)
-    })
+    }, { task -> Toast.makeText(this, task.taskTitle, Toast.LENGTH_SHORT).show() })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
