@@ -2,8 +2,14 @@
     <string name="app_name">Tasks App</string>
     <string name="task_title">Task title</string>
     <string name="new_task">New task</string>
+    <string name="edit_task">Edit task</string>
     <string name="more_icon">More icon</string>
     <string name="new_task_positive_button">OK</string>
     <string name="new_task_negative_button">Cancel</string>
     <string name="more_icon_description">More Actions</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="delete_task_alert_dialog_title">Delete task?</string>
+    <string name="delete_task_alert_dialog_message">Do you really want to delete</string>
+
 </resources>
