@@ -62,7 +62,8 @@ class MainActivity : AppCompatActivity() {
         val task = Task(taskTitle = title)
         viewModel.insertTask(task)
 
-        Snackbar.make(binding.root, "Task created!", Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(binding.root, getString(R.string.task_created_message), Snackbar.LENGTH_SHORT)
+            .show()
     }
 
     private fun editTask(task: Task) {
@@ -76,6 +77,11 @@ class MainActivity : AppCompatActivity() {
             .setPositiveButton(getString(R.string.new_task_positive_button)) { _, _ ->
 
                 viewModel.deleteTask(task)
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.task_deleted_message),
+                    Snackbar.LENGTH_SHORT
+                ).show()
                 task.id?.let { taskListAdapter.notifyItemRemoved(it) }
 
             }
