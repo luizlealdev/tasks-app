@@ -9,7 +9,7 @@ Simple task app for practicing android concepts like:
 
 ## Preview 🎬
 
-<img height="460" src="./images/preview.gif" width="220" alt="Preview"/>
+<img height="460" src="./images/preview.gif" width="220" alt="Preview Gif"/>
 
 ## Licence 📃
 
