@@ -71,8 +71,7 @@ class TaskListAdapter(
             }
 
             binding.checkboxTask.checkedState = checkBoxState
-            binding.textTaskTitle.paintFlags = paintFlagState
-
+            taskTitle.paintFlags = paintFlagState
 
             binding.checkboxTask.setOnClickListener {
                 onCheckBoxClicked(task)
